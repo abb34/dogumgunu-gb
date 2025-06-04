@@ -10,9 +10,8 @@
       padding: 0;
       background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
       background-size: cover;
-      background-attachment: fixed;
-      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
     }
 
     #balloon-container {
@@ -23,10 +22,6 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      will-change: transform;
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
-      contain: strict;
     }
 
     .balloon {
@@ -55,7 +50,7 @@
 
     #main-content {
       opacity: 0;
-      animation: fadein 2s ease-in-out 3s forwards; /* erken gelsin */
+      animation: fadein 2s ease-in-out 4s forwards; /* daha erken gelsin */
       text-align: center;
       position: relative;
       z-index: 1;
@@ -93,27 +88,18 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 12px;
-      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px 20px;
+      border-radius: 20px;
       font-weight: bold;
-      font-size: 1.1em;
-      color: #333;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      color: #d80000;
+      z-index: 2;
+      animation: fadeInHint 2s ease-in-out 6s forwards;
       opacity: 0;
-      animation: slideUpFade 1s ease-in-out 6s forwards;
-      z-index: 5;
     }
 
-    @keyframes slideUpFade {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeInHint {
+      to { opacity: 1; }
     }
 
     audio {
@@ -128,16 +114,16 @@
   <div id="main-content">
     <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
     <div class="typewriter" id="yazi"></div>
-    <audio autoplay loop>
-  <source src="https://cdn.jsdelivr.net/gh/abb34/dogumgunu-3@main/happy-birthday-352722.mp3" type="audio/mp3">
-</audio>
   </div>
 
   <div id="torpido-hint">🎁 Torpidoya bakmayı unutma!</div>
 
+  <audio id="bg-music" loop>
+    <source src="https://raw.githubusercontent.com/abb34/dogumgunu-3/main/happy-birthday-352722.mp3" type="audio/mp3">
+  </audio>
+
   <script>
     const container = document.getElementById("balloon-container");
-
     const colors = ['#ff69b4', '#87cefa', '#ffd700', '#98fb98', '#dda0dd'];
 
     function createBalloon() {
@@ -170,6 +156,7 @@
       setTimeout(createBalloon, i * 300);
     }
 
+    // Yazı efekti
     const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
@@ -181,6 +168,12 @@
       }
     }
     setTimeout(yazdir, 6000);
+
+    // Ses başlatma için kullanıcı tıklamasını bekle
+    window.addEventListener("click", () => {
+      const music = document.getElementById("bg-music");
+      music.play().catch(e => console.log("Ses başlatılamadı:", e));
+    });
   </script>
 
 </body>
