@@ -8,11 +8,20 @@
     body {
       margin: 0;
       padding: 0;
-      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
-      background-size: cover;
-      background-attachment: fixed;
       overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center;
+      background-size: cover;
+      z-index: -2;
     }
 
     #balloon-container {
@@ -51,7 +60,7 @@
 
     #main-content {
       opacity: 0;
-      animation: fadein 2s ease-in-out 1.5s forwards;
+      animation: fadein 2s ease-in-out 2s forwards;
       text-align: center;
       position: relative;
       z-index: 1;
@@ -65,31 +74,28 @@
     h1 {
       font-size: 2.5em;
       color: #fff;
-      text-shadow: 2px 2px 6px #000;
+      text-shadow: 1px 1px 4px #000;
     }
 
-    #yazi {
-      display: block;
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid #000;
+      white-space: nowrap;
       overflow: hidden;
-      margin: auto;
-      max-width: 90vw;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 2px 2px 6px #000;
-      opacity: 0;
+      animation: typing 6s steps(50, end), blink 0.75s step-end infinite;
       font-size: 1.2em;
-      animation: fadeAndGlow 1.5s ease-in-out 2.5s forwards;
+      width: 0;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
     }
 
-    @keyframes fadeAndGlow {
-      0% {
-        opacity: 0;
-        text-shadow: none;
-      }
-      100% {
-        opacity: 1;
-        text-shadow: 0 0 10px #fff, 0 0 20px #ffc0cb, 0 0 30px #ff69b4;
-      }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
     #torpido-hint {
@@ -104,7 +110,7 @@
       color: #333;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       opacity: 0;
-      animation: slideUpFade 1s ease-in-out 5s forwards;
+      animation: slideUpFade 1s ease-in-out 6s forwards;
       z-index: 5;
     }
 
@@ -130,7 +136,7 @@
 
   <div id="main-content">
     <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
-    <div id="yazi"></div>
+    <div class="typewriter" id="yazi"></div>
     <audio autoplay loop>
       <source src="https://raw.githubusercontent.com/abb34/dogumgunu-3/main/happy-birthday-352722.mp3" type="audio/mp3">
     </audio>
@@ -172,7 +178,7 @@
       setTimeout(createBalloon, i * 300);
     }
 
-    // Yazı efekti hemen başlasın
+    // Yazı efekti
     const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
@@ -183,7 +189,7 @@
         setTimeout(yazdir, 80);
       }
     }
-    setTimeout(yazdir, 2500); // hemen doğum günü yazısından sonra başlasın
+    setTimeout(yazdir, 3000); // doğum günü yazısından hemen sonra başlasın
   </script>
 
 </body>
