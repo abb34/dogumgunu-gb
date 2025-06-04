@@ -1,17 +1,23 @@
-<!DOCTYPE html>More actions
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Doğum Günün Kutlu Olsun 🎈</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
+      min-height: 100vh;
+    }
+
+    body {
+      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center;
       background-size: cover;
+      background-attachment: scroll;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     #balloon-container {
@@ -22,7 +28,6 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      will-change: transform;
     }
 
     .balloon {
@@ -34,14 +39,8 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-150vh) rotate(10deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-150vh) rotate(10deg); opacity: 0; }
     }
 
     .svg-balloon {
@@ -123,15 +122,8 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        background-attachment: scroll;
-      }
-      h1 {
-        font-size: 1.6em;
-      }
-      .typewriter {
-        font-size: 1em;
-      }
+      h1 { font-size: 1.6em; }
+      .typewriter { font-size: 1em; }
     }
   </style>
 </head>
@@ -187,6 +179,7 @@
     const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
+
     function yazdir() {
       if (i < metin.length) {
         yazi.textContent += metin.charAt(i);
@@ -194,14 +187,13 @@
         setTimeout(yazdir, 80);
       }
     }
-    setTimeout(yazdir, 3000);
+
+    setTimeout(yazdir, 4000);
 
     // Müzik fallback
     window.addEventListener("click", function () {
       const audio = document.querySelector("audio");
-      if (audio) {
-        audio.play().catch(() => {});
-      }
+      if (audio) audio.play().catch(() => {});
     });
   </script>
 
