@@ -55,7 +55,7 @@
 
     #main-content {
       opacity: 0;
-      animation: fadein 2s ease-in-out 6s forwards;
+      animation: fadein 2s ease-in-out 3s forwards; /* erken gelsin */
       text-align: center;
       position: relative;
       z-index: 1;
@@ -89,6 +89,33 @@
       50% { border-color: transparent }
     }
 
+    #torpido-hint {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 12px;
+      padding: 15px 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #333;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: slideUpFade 1s ease-in-out 6s forwards;
+      z-index: 5;
+    }
+
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     audio {
       display: none;
     }
@@ -106,6 +133,8 @@
     </audio>
   </div>
 
+  <div id="torpido-hint">🎁 Torpidoya bakmayı unutma!</div>
+
   <script>
     const container = document.getElementById("balloon-container");
 
@@ -118,7 +147,7 @@
       balloon.style.animationDuration = (6 + Math.random() * 4) + 's';
 
       const color = colors[Math.floor(Math.random() * colors.length)];
-      const gradientId = 'grad' + Math.floor(Math.random() * 1000000); // benzersiz ID
+      const gradientId = 'grad' + Math.floor(Math.random() * 1000000);
 
       balloon.innerHTML = `
         <svg class="svg-balloon" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
@@ -137,12 +166,10 @@
       setTimeout(() => balloon.remove(), 10000);
     }
 
-    // Toplam 40 balon gönder
     for (let i = 0; i < 40; i++) {
       setTimeout(createBalloon, i * 300);
     }
 
-    // Yazı efekti
     const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
