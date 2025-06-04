@@ -10,9 +10,8 @@
       padding: 0;
       background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
       background-size: cover;
-      background-attachment: fixed;
-      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
     }
 
     @media (max-width: 768px) {
@@ -73,13 +72,15 @@
     }
 
     .typewriter {
-      display: inline-block;
+      display: block;
       border-right: 2px solid #000;
       white-space: nowrap;
       overflow: hidden;
       animation: typing 6s steps(50, end), blink 0.75s step-end infinite;
       font-size: 1.2em;
       width: 0;
+      max-width: 90vw;
+      margin: auto;
     }
 
     @keyframes typing {
@@ -117,6 +118,10 @@
         transform: translateY(0);
       }
     }
+
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -135,7 +140,6 @@
 
   <script>
     const container = document.getElementById("balloon-container");
-
     const colors = ['#ff69b4', '#87cefa', '#ffd700', '#98fb98', '#dda0dd'];
 
     function createBalloon() {
