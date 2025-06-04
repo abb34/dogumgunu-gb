@@ -14,6 +14,12 @@
       overflow: hidden;
     }
 
+    @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+
     #balloon-container {
       position: absolute;
       top: 0;
@@ -50,11 +56,13 @@
 
     #main-content {
       opacity: 0;
-      animation: fadein 2s ease-in-out 4s forwards; /* daha erken gelsin */
+      animation: fadein 2s ease-in-out 3s forwards;
       text-align: center;
       position: relative;
       z-index: 1;
       padding: 50px;
+      color: #fff;
+      text-shadow: 1px 1px 5px #000;
     }
 
     @keyframes fadein {
@@ -63,11 +71,12 @@
 
     h1 {
       font-size: 2.5em;
+      margin-bottom: 20px;
     }
 
     .typewriter {
       display: inline-block;
-      border-right: 2px solid #000;
+      border-right: 2px solid #fff;
       white-space: nowrap;
       overflow: hidden;
       animation: typing 6s steps(50, end), blink 0.75s step-end infinite;
@@ -88,18 +97,14 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 12px 20px;
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 12px 18px;
+      border-radius: 12px;
       font-weight: bold;
-      color: #d80000;
-      z-index: 2;
-      animation: fadeInHint 2s ease-in-out 6s forwards;
+      box-shadow: 0 0 10px #00000033;
+      z-index: 10;
+      animation: fadein 2s ease-in-out 7s forwards;
       opacity: 0;
-    }
-
-    @keyframes fadeInHint {
-      to { opacity: 1; }
     }
 
     audio {
@@ -114,16 +119,16 @@
   <div id="main-content">
     <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
     <div class="typewriter" id="yazi"></div>
+    <audio autoplay loop>
+      <source src="https://raw.githubusercontent.com/abb34/dogumgunu-3/main/happy-birthday-352722.mp3" type="audio/mp3">
+    </audio>
   </div>
 
-  <div id="torpido-hint">🎁 Torpidoya bakmayı unutma!</div>
-
-  <audio id="bg-music" loop>
-    <source src="https://raw.githubusercontent.com/abb34/dogumgunu-3/main/happy-birthday-352722.mp3" type="audio/mp3">
-  </audio>
+  <div id="torpido-hint">🧨 Torpidoya bakmayı unutma!</div>
 
   <script>
     const container = document.getElementById("balloon-container");
+
     const colors = ['#ff69b4', '#87cefa', '#ffd700', '#98fb98', '#dda0dd'];
 
     function createBalloon() {
@@ -152,6 +157,7 @@
       setTimeout(() => balloon.remove(), 10000);
     }
 
+    // Toplam 40 balon gönder
     for (let i = 0; i < 40; i++) {
       setTimeout(createBalloon, i * 300);
     }
@@ -167,13 +173,7 @@
         setTimeout(yazdir, 80);
       }
     }
-    setTimeout(yazdir, 6000);
-
-    // Ses başlatma için kullanıcı tıklamasını bekle
-    window.addEventListener("click", () => {
-      const music = document.getElementById("bg-music");
-      music.play().catch(e => console.log("Ses başlatılamadı:", e));
-    });
+    setTimeout(yazdir, 3000); // balonlar çıkarken yazı başlasın
   </script>
 
 </body>
