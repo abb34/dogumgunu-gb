@@ -190,11 +190,15 @@ html, body {
 
     setTimeout(yazdir, 4000);
 
-    // Müzik fallback
-    window.addEventListener("click", function () {
+   // Mobil tarayıcılar için müzik etkileşimli başlatma
+  ['click', 'touchstart', 'pointerdown'].forEach(event => {
+    window.addEventListener(event, () => {
       const audio = document.querySelector("audio");
-      if (audio) audio.play().catch(() => {});
-    });
+      if (audio && audio.paused) {
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
+  });
   </script>
 
 </body>
