@@ -1,13 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Sürpriz!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sürpriz 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 30px;
+      font-size: 2.5em;
+    }
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid #000;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 5s steps(40, end), blink 0.75s step-end infinite;
+      font-size: 1.3em;
+      width: 0;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+    #slideshow {
+      margin: 20px auto;
+      width: 300px;
+      height: 200px;
+      position: relative;
+    }
+    #slideshow img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    #slideshow img.active {
+      opacity: 1;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 2em;
+      animation: float 3s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
 </head>
-<body style="text-align:center; font-family:sans-serif; background:#fff0f5;">
-  <h1>🎂 Sürpriiizz! 🎉</h1>
-  <p>Canımın doğum günü kutlu olsun ❤️</p>
-  <img src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif" width="200">
-  <p>Seni çok seviyorum.</p>
+<body>
+  <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
+  <div class="typewriter" id="yazi"></div>
+
+  <div id="slideshow">
+    <img src="https://placekitten.com/300/200" class="active">
+    <img src="https://placebear.com/300/200">
+    <img src="https://placebeard.it/300x200">
+  </div>
+
+  <button class="btn" onclick="surpriz()">Sürpriz İçin Tıkla 💝</button>
+  <div class="hearts" id="hearts"></div>
+
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    // Typewriter yazı efekti
+    const metin = "Senin gibi biri bu dünyaya yılda bir kez gelir... İyi ki doğdun ❤️";
+    const yazi = document.getElementById("yazi");
+    let i = 0;
+    function yazdir() {
+      if (i < metin.length) {
+        yazi.textContent += metin.charAt(i);
+        i++;
+        setTimeout(yazdir, 100);
+      }
+    }
+    yazdir();
+
+    // Slayt gösterisi
+    const slides = document.querySelectorAll("#slideshow img");
+    let index = 0;
+    setInterval(() => {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }, 3000);
+
+    // Sürpriz: Kalpler yağsın
+    function surpriz() {
+      for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        heart.textContent = "💖";
+        document.getElementById("hearts").appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
 </body>
 </html>
