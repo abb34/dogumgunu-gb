@@ -3,134 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sürpriz 🎉</title>
+  <title>Doğum Günün Kutlu Olsun 🎉</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
       background: #fff0f5;
       font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
+    }
+    #balloons {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 50px;
+      height: 70px;
+      background: radial-gradient(circle at 30% 30%, #ff69b4, #d32f6f);
+      border-radius: 50% 50% 45% 45%;
+      animation: rise 5s ease-in infinite;
+      transform: rotateZ(10deg);
+    }
+    @keyframes rise {
+      0% {
+        transform: translateY(0) rotateZ(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotateZ(360deg);
+        opacity: 0;
+      }
+    }
+
+    #main-content {
+      opacity: 0;
       text-align: center;
+      padding: 40px;
+      animation: fadein 2s ease-in-out 5s forwards;
+      z-index: 1;
+      position: relative;
     }
+    @keyframes fadein {
+      to {
+        opacity: 1;
+      }
+    }
+
     h1 {
-      margin-top: 30px;
       font-size: 2.5em;
+      margin-bottom: 10px;
     }
+
     .typewriter {
       display: inline-block;
       border-right: 2px solid #000;
       white-space: nowrap;
       overflow: hidden;
-      animation: typing 5s steps(40, end), blink 0.75s step-end infinite;
-      font-size: 1.3em;
+      animation: typing 6s steps(50, end), blink 0.75s step-end infinite;
+      font-size: 1.2em;
       width: 0;
     }
+
     @keyframes typing {
       from { width: 0 }
       to { width: 100% }
     }
+
     @keyframes blink {
       50% { border-color: transparent }
     }
-    #slideshow {
-      margin: 20px auto;
-      width: 300px;
-      height: 200px;
-      position: relative;
-    }
-    #slideshow img {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-    #slideshow img.active {
-      opacity: 1;
-    }
-    .btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-    }
-    .heart {
-      position: absolute;
-      color: pink;
-      font-size: 2em;
-      animation: float 3s linear infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
-  <div class="typewriter" id="yazi"></div>
 
-  <div id="slideshow">
-    <img src="https://placekitten.com/300/200" class="active">
-    <img src="https://placebear.com/300/200">
-    <img src="https://placebeard.it/300x200">
+  <div id="balloons"></div>
+
+  <div id="main-content">
+    <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
+    <div class="typewriter" id="yazi"></div>
+    <audio autoplay loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+    </audio>
   </div>
 
-  <button class="btn" onclick="surpriz()">Sürpriz İçin Tıkla 💝</button>
-  <div class="hearts" id="hearts"></div>
-
-  <audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
-  </audio>
-
   <script>
-    // Typewriter yazı efekti
-    const metin = "Senin gibi biri bu dünyaya yılda bir kez gelir... İyi ki doğdun ❤️";
+    // Balonlar oluşturuluyor
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.animationDuration = (4 + Math.random() * 2) + 's';
+      document.getElementById('balloons').appendChild(balloon);
+      setTimeout(() => balloon.remove(), 6000);
+    }
+
+    for (let i = 0; i < 30; i++) {
+      setTimeout(createBalloon, i * 200);
+    }
+
+    // Yazı efekti
+    const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
     function yazdir() {
       if (i < metin.length) {
         yazi.textContent += metin.charAt(i);
         i++;
-        setTimeout(yazdir, 100);
+        setTimeout(yazdir, 80);
       }
     }
-    yazdir();
-
-    // Slayt gösterisi
-    const slides = document.querySelectorAll("#slideshow img");
-    let index = 0;
-    setInterval(() => {
-      slides[index].classList.remove("active");
-      index = (index + 1) % slides.length;
-      slides[index].classList.add("active");
-    }, 3000);
-
-    // Sürpriz: Kalpler yağsın
-    function surpriz() {
-      for (let i = 0; i < 30; i++) {
-        let heart = document.createElement("div");
-        heart.className = "heart";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = Math.random() * 100 + "vh";
-        heart.textContent = "💖";
-        document.getElementById("hearts").appendChild(heart);
-        setTimeout(() => heart.remove(), 3000);
-      }
-    }
+    setTimeout(yazdir, 5500); // Balonlar geçtikten sonra yazıya başla
   </script>
+
 </body>
 </html>
