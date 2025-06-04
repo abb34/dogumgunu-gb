@@ -8,30 +8,21 @@
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center;
+      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
       background-size: cover;
-      z-index: -2;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
     }
 
     #balloon-container {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
       z-index: 0;
+      will-change: transform;
     }
 
     .balloon {
@@ -59,39 +50,41 @@
     }
 
     #main-content {
-      opacity: 0;
-      animation: fadein 2s ease-in-out 2s forwards;
       text-align: center;
       position: relative;
       z-index: 1;
-      padding: 50px;
+      padding: 50px 20px;
+      color: #000;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin: 0;
+      animation: fadein 2s ease-in-out 2s forwards;
+      opacity: 0;
     }
 
     @keyframes fadein {
       to { opacity: 1; }
     }
 
-    h1 {
-      font-size: 2.5em;
-      color: #fff;
-      text-shadow: 1px 1px 4px #000;
-    }
-
     .typewriter {
-      display: inline-block;
-      border-right: 2px solid #000;
-      white-space: nowrap;
+      display: block;
+      white-space: normal;
       overflow: hidden;
-      animation: typing 6s steps(50, end), blink 0.75s step-end infinite;
+      border-right: 2px solid #000;
       font-size: 1.2em;
+      margin-top: 20px;
+      animation: typing 6s steps(60, end) 3s forwards, blink 0.75s step-end infinite 3s;
       width: 0;
-      color: #fff;
-      text-shadow: 1px 1px 3px #000;
+      max-width: 90vw;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @keyframes typing {
       from { width: 0 }
-      to { width: 100% }
+      to { width: 90vw }
     }
 
     @keyframes blink {
@@ -104,13 +97,13 @@
       right: 20px;
       background: rgba(255,255,255,0.9);
       border-radius: 12px;
-      padding: 15px 20px;
+      padding: 12px 18px;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1em;
       color: #333;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       opacity: 0;
-      animation: slideUpFade 1s ease-in-out 6s forwards;
+      animation: slideUpFade 1s ease-in-out 7s forwards;
       z-index: 5;
     }
 
@@ -127,6 +120,15 @@
 
     audio {
       display: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.6em;
+      }
+      .typewriter {
+        font-size: 1em;
+      }
     }
   </style>
 </head>
@@ -178,7 +180,6 @@
       setTimeout(createBalloon, i * 300);
     }
 
-    // Yazı efekti
     const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
@@ -189,7 +190,7 @@
         setTimeout(yazdir, 80);
       }
     }
-    setTimeout(yazdir, 3000); // doğum günü yazısından hemen sonra başlasın
+    setTimeout(yazdir, 3000);
   </script>
 
 </body>
