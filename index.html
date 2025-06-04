@@ -3,27 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Doğum Günün Kutlu Olsun 🎉</title>
+  <title>Doğum Günün Kutlu Olsun 🎈</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
+      margin: 0;
+      padding: 0;
       background: #fff0f5;
-      font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 90px;
+      animation: floatUp linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-150vh) rotate(10deg);
+        opacity: 0;
+      }
+    }
+
+    .svg-balloon {
+      width: 100%;
+      height: 100%;
     }
 
     #main-content {
       opacity: 0;
+      animation: fadein 2s ease-in-out 6s forwards;
       text-align: center;
-      padding: 40px;
-      animation: fadein 2s ease-in-out 5s forwards;
-      z-index: 1;
       position: relative;
+      z-index: 1;
+      padding: 50px;
+    }
+
+    @keyframes fadein {
+      to { opacity: 1; }
     }
 
     h1 {
       font-size: 2.5em;
-      margin-bottom: 10px;
     }
 
     .typewriter {
@@ -45,44 +73,6 @@
       50% { border-color: transparent }
     }
 
-    @keyframes fadein {
-      to { opacity: 1; }
-    }
-
-    /* Balonlar */
-    #balloons-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .balloon {
-      position: absolute;
-      width: 40px;
-      height: 50px;
-      background: radial-gradient(circle at 30% 30%, #ff69b4, #d32f6f);
-      border-radius: 50% 50% 45% 45%;
-      opacity: 0.8;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      animation: float 6s linear infinite;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-120vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
     audio {
       display: none;
     }
@@ -90,7 +80,7 @@
 </head>
 <body>
 
-  <div id="balloons-container"></div>
+  <div id="balloon-container"></div>
 
   <div id="main-content">
     <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
@@ -101,22 +91,39 @@
   </div>
 
   <script>
-    // Gerçekçi balon üretimi
+    const container = document.getElementById("balloon-container");
+
+    const colors = ['#ff69b4', '#87cefa', '#ffd700', '#98fb98', '#dda0dd'];
+
     function createBalloon() {
-      const balloon = document.createElement('div');
-      balloon.className = 'balloon';
+  const balloon = document.createElement('div');
+  balloon.className = 'balloon';
+  balloon.style.left = Math.random() * 100 + 'vw';
+  balloon.style.animationDuration = (6 + Math.random() * 4) + 's';
 
-      const colors = ['#ff69b4', '#ffd700', '#87ceeb', '#ffa07a', '#98fb98'];
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, #555)`;
-      balloon.style.left = Math.random() * 100 + 'vw';
-      balloon.style.animationDuration = (5 + Math.random() * 3) + 's';
-      document.getElementById('balloons-container').appendChild(balloon);
-      setTimeout(() => balloon.remove(), 8000);
-    }
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const gradientId = 'grad' + Math.floor(Math.random() * 1000000); // benzersiz ID
 
+  balloon.innerHTML = `
+    <svg class="svg-balloon" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="${gradientId}" cx="30%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="${color}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#00000022" stop-opacity="0.2"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="30" cy="35" rx="25" ry="35" fill="url(#${gradientId})" stroke="#555" stroke-width="1"/>
+      <polygon points="25,65 35,65 30,70" fill="#555"/>
+      <path d="M30 70 C 28 80, 32 85, 30 90" stroke="#333" stroke-width="1" fill="none"/>
+    </svg>
+  `;
+  container.appendChild(balloon);
+  setTimeout(() => balloon.remove(), 10000);
+}
+
+    // Toplam 40 balon gönder
     for (let i = 0; i < 40; i++) {
-      setTimeout(createBalloon, i * 200);
+      setTimeout(createBalloon, i * 300);
     }
 
     // Yazı efekti
@@ -130,7 +137,7 @@
         setTimeout(yazdir, 80);
       }
     }
-    setTimeout(yazdir, 5500);
+    setTimeout(yazdir, 6000); // Balonlardan sonra yazı başlasın
   </script>
 
 </body>
