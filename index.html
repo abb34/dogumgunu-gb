@@ -2,14 +2,15 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Doğum Günün Kutlu Olsun 🎈</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
+      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center;
       background-size: cover;
+      background-attachment: scroll;
       font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
     }
@@ -22,7 +23,6 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      will-change: transform;
     }
 
     .balloon {
@@ -34,14 +34,8 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-150vh) rotate(10deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-150vh) rotate(10deg); opacity: 0; }
     }
 
     .svg-balloon {
@@ -66,10 +60,6 @@
       opacity: 0;
     }
 
-    @keyframes fadein {
-      to { opacity: 1; }
-    }
-
     .typewriter {
       display: block;
       white-space: normal;
@@ -80,15 +70,10 @@
       margin-left: auto;
       margin-right: auto;
       min-height: 1.5em;
-      word-break: break-word;
-      line-height: 1.5;
     }
 
-    #last-line {
-      opacity: 0;
-      font-size: 1em;
-      margin-top: 30px;
-      animation: fadein 1.5s ease-in-out 7s forwards;
+    @keyframes fadein {
+      to { opacity: 1; }
     }
 
     #torpido-hint {
@@ -103,7 +88,7 @@
       color: #333;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       opacity: 0;
-      animation: slideUpFade 1s ease-in-out 9s forwards;
+      animation: slideUpFade 1s ease-in-out 13s forwards;
       z-index: 5;
     }
 
@@ -123,15 +108,8 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        background-attachment: scroll;
-      }
-      h1 {
-        font-size: 1.6em;
-      }
-      .typewriter {
-        font-size: 1em;
-      }
+      h1 { font-size: 1.6em; }
+      .typewriter { font-size: 1em; }
     }
   </style>
 </head>
@@ -142,13 +120,12 @@
   <div id="main-content">
     <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
     <div class="typewriter" id="yazi"></div>
-    <div id="last-line">Bu sene hediye alamadım ama... ❤️</div>
     <audio autoplay loop>
       <source src="https://raw.githubusercontent.com/abb34/dogumgunu-3/main/happy-birthday-352722.mp3" type="audio/mp3">
     </audio>
   </div>
 
-  <div id="torpido-hint">🎁 Torpidoya bakmayı unutma!</div>
+  <div id="torpido-hint">🎁 Bu sene hediye alamadım... Ama torpidoya bakmayı unutma!</div>
 
   <script>
     const container = document.getElementById("balloon-container");
@@ -187,6 +164,7 @@
     const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
     const yazi = document.getElementById("yazi");
     let i = 0;
+
     function yazdir() {
       if (i < metin.length) {
         yazi.textContent += metin.charAt(i);
@@ -194,15 +172,8 @@
         setTimeout(yazdir, 80);
       }
     }
-    setTimeout(yazdir, 3000);
 
-    // Müzik fallback
-    window.addEventListener("click", function () {
-      const audio = document.querySelector("audio");
-      if (audio) {
-        audio.play().catch(() => {});
-      }
-    });
+    setTimeout(yazdir, 4000); // H1'den hemen sonra başlasın
   </script>
 
 </body>
