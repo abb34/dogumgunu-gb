@@ -11,7 +11,7 @@
       background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     #balloon-container {
@@ -55,6 +55,8 @@
       z-index: 1;
       padding: 50px 20px;
       color: #000;
+      max-width: 600px;
+      margin: auto;
     }
 
     h1 {
@@ -72,23 +74,14 @@
       display: block;
       white-space: normal;
       overflow: hidden;
-      border-right: 2px solid #000;
       font-size: 1.2em;
       margin-top: 20px;
-      animation: typing 6s steps(60, end) 3s forwards, blink 0.75s step-end infinite 3s;
-      width: 0;
       max-width: 90vw;
       margin-left: auto;
       margin-right: auto;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 90vw }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
+      min-height: 1.5em;
+      word-break: break-word;
+      line-height: 1.5;
     }
 
     #torpido-hint {
@@ -123,6 +116,9 @@
     }
 
     @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+      }
       h1 {
         font-size: 1.6em;
       }
@@ -191,6 +187,14 @@
       }
     }
     setTimeout(yazdir, 3000);
+
+    // Müzik engeline karşı fallback
+    window.addEventListener("click", function () {
+      const audio = document.querySelector("audio");
+      if (audio) {
+        audio.play().catch(() => {});
+      }
+    });
   </script>
 
 </body>
