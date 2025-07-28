@@ -2,203 +2,73 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Doğum Günün Kutlu Olsun 🎈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Sürpriz Slayt 🎉</title>
   <style>
-html, body {
-  height: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
     body {
-      background: url('https://raw.githubusercontent.com/abb34/dogumgunu-3/main/dgbr.jpeg') no-repeat center center;
-      background-size: cover;
-      background-attachment: scroll;
+      margin: 0;
+      background: #000;
       font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    #balloon-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .balloon {
-      position: absolute;
-      width: 60px;
-      height: 90px;
-      animation: floatUp linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-150vh) rotate(10deg); opacity: 0; }
-    }
-
-    .svg-balloon {
-      width: 100%;
-      height: 100%;
-    }
-
-    #main-content {
-      text-align: center;
+    .slideshow-container {
       position: relative;
-      z-index: 1;
-      padding: 50px 20px;
-      color: #000;
-      max-width: 600px;
+      max-width: 100%;
+      height: 100vh;
       margin: auto;
     }
 
-    h1 {
-      font-size: 2.2em;
-      margin: 0;
-      animation: fadein 2s ease-in-out 2s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadein {
-      to { opacity: 1; }
-    }
-
-    .typewriter {
-      display: block;
-      white-space: normal;
-      overflow: hidden;
-      font-size: 1.2em;
-      margin-top: 20px;
-      max-width: 90vw;
-      margin-left: auto;
-      margin-right: auto;
-      min-height: 1.5em;
-      word-break: break-word;
-      line-height: 1.5;
-    }
-
-    #last-line {
-      opacity: 0;
-      font-size: 1em;
-      margin-top: 30px;
-      animation: fadein 1.5s ease-in-out 7s forwards;
-    }
-
-    #torpido-hint {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-weight: bold;
-      font-size: 1em;
-      color: #333;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      opacity: 0;
-      animation: slideUpFade 1s ease-in-out 9s forwards;
-      z-index: 5;
-    }
-
-    @keyframes slideUpFade {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    audio {
+    .slide {
       display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 1.6em; }
-      .typewriter { font-size: 1em; }
+    .fade {
+      animation-name: fade;
+      animation-duration: 1s;
+    }
+
+    @keyframes fade {
+      from {opacity: 0.4}
+      to {opacity: 1}
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+      text-shadow: 2px 2px 10px black;
     }
   </style>
 </head>
 <body>
 
-  <div id="balloon-container"></div>
-
-  <div id="main-content">
-    <h1>🎂 Doğum Günün Kutlu Olsun!</h1>
-    <div class="typewriter" id="yazi"></div>
-    <div id="last-line">Bu sene hediye alamadım ama... ❤️</div>
-    <audio autoplay loop>
-      <source src="https://raw.githubusercontent.com/abb34/dogumgunu-3/main/happy-birthday-352722.mp3" type="audio/mp3">
-    </audio>
+  <div class="slideshow-container">
+    <img src="images/slide1.jpg" class="slide fade" style="display:block">
+    <img src="images/slide2.jpg" class="slide fade">
+    <img src="images/slide3.jpg" class="slide fade">
+    <div class="caption">Nice mutlu yaşlara! 🎂</div>
   </div>
 
-  <div id="torpido-hint">🎁 <a href="slayt.html">🎥 </a> </div>
-
   <script>
-    const container = document.getElementById("balloon-container");
-    const colors = ['#ff69b4', '#87cefa', '#ffd700', '#98fb98', '#dda0dd'];
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
 
-    function createBalloon() {
-      const balloon = document.createElement('div');
-      balloon.className = 'balloon';
-      balloon.style.left = Math.random() * 100 + 'vw';
-      balloon.style.animationDuration = (6 + Math.random() * 4) + 's';
-
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      const gradientId = 'grad' + Math.floor(Math.random() * 1000000);
-
-      balloon.innerHTML = `
-        <svg class="svg-balloon" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="${gradientId}" cx="30%" cy="30%" r="80%">
-              <stop offset="0%" stop-color="${color}" stop-opacity="1"/>
-              <stop offset="100%" stop-color="#00000022" stop-opacity="0.2"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="30" cy="35" rx="25" ry="35" fill="url(#${gradientId})" stroke="#555" stroke-width="1"/>
-          <polygon points="25,65 35,65 30,70" fill="#555"/>
-          <path d="M30 70 C 28 80, 32 85, 30 90" stroke="#333" stroke-width="1" fill="none"/>
-        </svg>
-      `;
-      container.appendChild(balloon);
-      setTimeout(() => balloon.remove(), 10000);
+    function showSlides() {
+      slides.forEach(s => s.style.display = "none");
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].style.display = "block";
     }
 
-    for (let i = 0; i < 40; i++) {
-      setTimeout(createBalloon, i * 300);
-    }
-
-    const metin = "Sana her baktığımda… iyi ki diyebileceğim bir hayat görüyorum.";
-    const yazi = document.getElementById("yazi");
-    let i = 0;
-
-    function yazdir() {
-      if (i < metin.length) {
-        yazi.textContent += metin.charAt(i);
-        i++;
-        setTimeout(yazdir, 80);
-      }
-    }
-
-    setTimeout(yazdir, 4000);
-
-   // Mobil tarayıcılar için müzik etkileşimli başlatma
-  ['click', 'touchstart', 'pointerdown'].forEach(event => {
-    window.addEventListener(event, () => {
-      const audio = document.querySelector("audio");
-      if (audio && audio.paused) {
-        audio.play().catch(() => {});
-      }
-    }, { once: true });
-  });
+    setInterval(showSlides, 4000); // 4 saniyede bir geç
   </script>
 
 </body>
