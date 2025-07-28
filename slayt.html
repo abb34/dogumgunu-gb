@@ -105,6 +105,33 @@
       }, { once: true }); // sadece ilk tıklamada çalışacak
     });
   </script>
-
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/fireworks.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.querySelector('.slideshow-container');
+      const fireworks = new Fireworks.default(container, {
+        speed: 3,
+        acceleration: 1.05,
+        friction: 0.95,
+        gravity: 1.5,
+        particles: 50,
+        trace: 3,
+        explosion: 5,
+        autoresize: true,
+        brightness: {
+          min: 50,
+          max: 80
+        },
+        delay: {
+          min: 30,
+          max: 60
+        },
+        sound: {
+          enabled: false
+        }
+      });
+      fireworks.start();
+    });
+  </script>
 </body>
 </html>
