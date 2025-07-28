@@ -75,16 +75,34 @@
     <div class="caption">Nice mutlu yaşlara! 🎂</div>
   </div>
 
+  <audio id="bg-music" loop>
+    <source src="music/arkaplan.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       let slideIndex = 0;
       const slides = document.querySelectorAll(".slide");
+      const audio = document.getElementById("bg-music");
+      let musicStarted = false;
 
+      // Slayt döngüsü
       setInterval(() => {
         slides[slideIndex].classList.remove("show");
         slideIndex = (slideIndex + 1) % slides.length;
         slides[slideIndex].classList.add("show");
       }, 4000);
+
+      // Sayfanın herhangi bir yerine tıklandığında müziği başlat
+      document.body.addEventListener("click", function() {
+        if (!musicStarted) {
+          audio.play().catch(e => {
+            console.log("Müzik çalma hatası:", e);
+          });
+          musicStarted = true;
+          console.log("Müzik başladı");
+        }
+      }, { once: true }); // sadece ilk tıklamada çalışacak
     });
   </script>
 
